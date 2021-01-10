@@ -18,14 +18,10 @@ inline void sort_dir_to_path(string path_dir) {
 	printf("Sorting has started\n");
 	for (const auto& file : directory_iterator(path_dir)) {
 		if (!is_directory(file)) {
-			string* path_to = new string();
-			string* path_from = new string();
-			*path_to = path_dir + "\\"s + file.path().extension().string() + "\\"s + file.path().filename().string();
-			*path_from = path_dir + "\\"s + file.path().filename().string();
+			string path_to = path_dir + "\\"s + file.path().extension().string() + "\\"s + file.path().filename().string();
+			string path_from = path_dir + "\\"s + file.path().filename().string();
 			create_directory(path_dir + "\\"s + file.path().extension().string());
-			MoveFileA(path_from->c_str(), path_to->c_str());
-			delete path_from;
-			delete path_to;
+			MoveFileA(path_from.c_str(), path_to.c_str());
 		}
 	}
 	printf("Sorting finished\n");
